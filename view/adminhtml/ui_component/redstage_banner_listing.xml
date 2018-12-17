@@ -1,0 +1,122 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">redstage_banner_listing.redstage_banner_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>redstage_banner_columns</spinner>
+		<deps>
+			<dep>redstage_banner_listing.redstage_banner_listing_data_source</dep>
+		</deps>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add new Banner</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource component="Magento_Ui/js/grid/provider" name="redstage_banner_listing_data_source">
+		<settings>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Redstage_Banner::Banner</aclResource>
+		<dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="redstage_banner_listing_data_source">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>banner_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="redstage_banner_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">redstage_banner_listing.redstage_banner_listing.redstage_banner_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">banner_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" path="redstage_banner/Banner/inlineEdit" xsi:type="url"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">redstage_banner_listing.redstage_banner_listing.redstage_banner_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>banner_id</indexField>
+			</settings>
+		</selectionsColumn>
+
+		<column name="banner_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+
+		<column name="name">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">name</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+
+		<column name="status" component="Magento_Ui/js/grid/columns/select">
+			<settings>
+                <options class="Magento\Cms\Model\Block\Source\IsActive"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+			</settings>
+		</column>
+
+		<column name="position">
+			<settings>
+                <options class="Redstage\Banner\Model\Source\Position"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Position</label>
+			</settings>
+		</column>
+
+        <actionsColumn class="Redstage\Banner\Ui\Component\Listing\Column\BannerActions" name="actions">
+            <settings>
+                <indexField>banner_id</indexField>
+            </settings>
+        </actionsColumn>
+	</columns>
+</listing>

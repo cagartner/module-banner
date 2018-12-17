@@ -1,0 +1,13 @@
+<?php
+
+use Redstage\Banner\Block\Banner;
+
+/**
+ * @var $block Banner
+ */
+?>
+<?php if ($banner = $block->getBanner()) : ?>
+<aside class="rs-banner">
+	<?= $banner ?>
+</aside>
+<?php endif ?>

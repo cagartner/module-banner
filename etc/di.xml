@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Redstage\Banner\Api\BannerRepositoryInterface" type="Redstage\Banner\Model\BannerRepository"/>
+    <preference for="Redstage\Banner\Api\Data\BannerInterface" type="Redstage\Banner\Model\Data\Banner"/>
+    <preference for="Redstage\Banner\Api\Data\BannerSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
+    <virtualType name="Redstage\Banner\Model\ResourceModel\Banner\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">redstage_banner</argument>
+            <argument name="resourceModel" xsi:type="string">Redstage\Banner\Model\ResourceModel\Banner\Collection
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="redstage_banner_listing_data_source" xsi:type="string">
+                    Redstage\Banner\Model\ResourceModel\Banner\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>
